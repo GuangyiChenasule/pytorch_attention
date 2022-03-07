@@ -126,7 +126,9 @@ class AttnDecoder(nn.Module):
     def forward_step(self, input, hidden, encoder_outputs, input_mask):
         # encoder_outputs: [B, Seq, D]
         query = hidden.permute(1, 0, 2) # [1, B, D] --> [B, 1, D]
-        context, attn_weights = self.attention(query, encoder_outputs, input_mask)
+        context, attn_weights = self.attention(query, encoder_outputs, input_mask) 
+        '''query = s_j current 
+        #decoder state,values = h_j, each encoder state, mask to attention layer'''
         embedded = self.embedding(input)
         attn = torch.cat((embedded, context), dim=2)
         output, hidden = self.gru(attn, hidden)
