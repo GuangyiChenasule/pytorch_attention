@@ -68,7 +68,7 @@ class BahdanauAttention(nn.Module):
     def forward(self, query, values, mask):
         # Additive attention
         scores = self.V(torch.tanh(self.W1(query) + self.W2(values)))
-        scores = scores.squeeze(2).unsqueeze(1) # [B, M, 1] -> [B, 1, M]
+        scores = scores.squeeze(2).unsqueeze(1) # [B, M, 1] -> [B, 1, M] ,,M is length, D is dimention
 
         # Dot-Product Attention: score(s_t, h_i) = s_t^T h_i
         # Query [B, 1, D] * Values [B, D, M] -> Scores [B, 1, M]
